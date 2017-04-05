@@ -48,7 +48,7 @@ class Renderer {
         gl.enable(gl.CULL_FACE);
 
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.clearColor(0.325, 0.435, 0.592, 1.0);
     }
 
     private loadShader(): void {

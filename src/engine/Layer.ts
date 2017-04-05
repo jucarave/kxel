@@ -32,9 +32,6 @@ class Layer {
         if (this.width % 2 != 0) { r += 1; }
         if (this.height % 2 != 0) { t += 1; }
 
-        console.log(this.width, this.width % 2 != 0);
-        console.log(l, r, b, t);
-
         this.geometry.addVertice(l, b);
         this.geometry.addVertice(r, b);
         this.geometry.addVertice(l, t);
