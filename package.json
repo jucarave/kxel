@@ -1,0 +1,22 @@
+{
+  "name": "kxel",
+  "version": "0.0.1",
+  "description": "HTML5 based pixel art editor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Camilo Ramirez (Fedic)",
+  "license": "ISC",
+  "dependencies": {
+    "browserify": "^13.1.0",
+    "gulp": "^3.9.1",
+    "tsify": "^2.0.2",
+    "typescript": "^2.0.3",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
