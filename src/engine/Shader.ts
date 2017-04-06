@@ -27,7 +27,7 @@ class Shader {
         this.getShaderUniforms(shader);
     }
 
-    compileShaders(shader: ShaderStructure) {
+    private compileShaders(shader: ShaderStructure): void {
         let gl: WebGLRenderingContext = this.gl;
 
         let vShader: WebGLShader = gl.createShader(gl.VERTEX_SHADER);
@@ -59,7 +59,7 @@ class Shader {
         }
     }
 
-    getShaderAttributes(shader: ShaderStructure) {
+    private getShaderAttributes(shader: ShaderStructure): void {
         let code: Array<string> = shader.vertexShader.split(/\n/g);
         let gl: WebGLRenderingContext = this.gl;
 
@@ -85,7 +85,7 @@ class Shader {
         Shader.maxAttribLength = Math.max(Shader.maxAttribLength, this.attributesCount);
     }
 
-    getShaderUniforms(shader: ShaderStructure) {
+    private getShaderUniforms(shader: ShaderStructure): void {
         let code: Array<string> = shader.vertexShader.split(/\n/g);
         code = code.concat(shader.fragmentShader.split(/\n/g));
 
@@ -111,7 +111,7 @@ class Shader {
         }
     }
 
-    useProgram() {
+    public useProgram(): void {
         if (Shader.lastProgram == this) { return; }
 
         let gl: WebGLRenderingContext = this.gl;

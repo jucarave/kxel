@@ -10,7 +10,6 @@
   "files": [
     "src/index.ts",
 
-    "src/engine/Color.ts",
     "src/engine/Geometry.ts",
     "src/engine/Layer.ts",
     "src/engine/Matrix4.ts",
