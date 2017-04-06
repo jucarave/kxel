@@ -1,6 +1,8 @@
 import Renderer from './Renderer';
 import Layer from './Layer';
+
 class Sprite {
+    private background  :       Layer;
     private layers      :       Array<Layer>;
     private zoom        :       number;
 
@@ -9,20 +11,24 @@ class Sprite {
         this.zoom = 1;
 
         this.initTransparentLayer();
+        this.addLayer();
     }
 
     private initTransparentLayer(): void {
-        let w = this.width,
-            h = this.height;
+        let layer = new Layer(this.width, this.height, this.renderer.GL);
+        this.background = layer;
+    }
 
-        let layer = new Layer(w, h, this.renderer.GL);
-
+    public addLayer(): void {
+        let layer = new Layer(this.width, this.height, this.renderer.GL);
         this.layers.push(layer);
     }
 
     public render(): void {
+        this.renderer.render(this.background, this.zoom, "TRANSPARENT");
+
         for (let i=0,layer: Layer;layer=this.layers[i];i++) {
-            this.renderer.render(layer.geometryCanvas, layer.uv, this.zoom, "TRANSPARENT");
+            this.renderer.render(layer, this.zoom);
         }
     }
 }

@@ -27,7 +27,7 @@ let TransparentShader: ShaderStructure = {
         varying vec2 vPosition;
 
         void main(void) {
-            vec2 modCoord = mod(vPosition, vec2(32.0 * uZoom, 32.0 * uZoom));
+            vec2 modCoord = mod(vPosition, vec2(32.0 * uZoom));
             vec4 col = vec4(0.2352, 0.2352, 0.2352, 1.0);
 
             float midVal = 16.0 * uZoom;

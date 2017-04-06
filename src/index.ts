@@ -8,7 +8,7 @@ class Game {
         this.renderer = new Renderer(854, 480, document.getElementById("divGame"));
         this.renderer.clear();
 
-        let sprite = new Sprite(640, 480, this.renderer);
+        let sprite = new Sprite(64, 64, this.renderer);
         sprite.render();
     }
 }

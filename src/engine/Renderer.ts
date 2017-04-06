@@ -1,5 +1,5 @@
 import Shader from './Shader';
-import Geometry from './Geometry';
+import Layer from './Layer';
 import Matrix4 from './Matrix4';
 import BasicShader from '../shaders/BasicShader';
 import TransparentShader from '../shaders/TransparentShader';
@@ -46,8 +46,11 @@ class Renderer {
 
         let gl: WebGLRenderingContext = this.gl;
 
-        gl.enable(gl.DEPTH_TEST);
+        gl.disable(gl.DEPTH_TEST);
         gl.enable(gl.CULL_FACE);
+        gl.enable(gl.BLEND);
+
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
         gl.clearColor(0.325, 0.435, 0.592, 1.0);
@@ -73,11 +76,11 @@ class Renderer {
         gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
     }
 
-    public render(geometry: Geometry, uv: Array<number>, zoom: number, shaderIndex: string = "BASIC"): void {
+    public render(layer: Layer, zoom: number, shaderIndex: string = "BASIC"): void {
         let shader = this.shaders[shaderIndex];
         shader.useProgram();
 
-        geometry.render(this.gl, shader, this.camera, uv, zoom);
+        layer.geometryCanvas.render(this.gl, shader, this.camera, layer.uv, zoom);
     }
 }
 
