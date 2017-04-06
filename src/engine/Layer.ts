@@ -1,14 +1,16 @@
 import Geometry from './Geometry';
-import { Color } from './Color';
 import { nextPowerOf2 } from './Utils';
 
 class Layer {
     private width           :       number;
     private height          :       number;
     private gl              :       WebGLRenderingContext;
-    private imageData       :       Uint8Array;
     private texture         :       WebGLTexture;
     private geometry        :       Geometry;
+
+    private imageData       :       ArrayBuffer;
+    private data8b          :       Uint8Array;
+    private data32          :       Uint32Array;
 
     private texWidth        :       number;
     private texHeight       :       number;
@@ -53,18 +55,18 @@ class Layer {
         this.texHeight = nextPowerOf2(this.height);
         this.uvLimit = [this.texWidth / this.width, this.texHeight / this.height];
 
-        this.imageData = new Uint8Array(this.texWidth * this.texHeight * 4);
-        for (let i=0;i<this.texWidth*this.texHeight*4;i+=4) {
-            this.imageData[i] = 0;
-            this.imageData[i + 1] = 0;
-            this.imageData[i + 2] = 0;
-            this.imageData[i + 3] = 0;
+        this.imageData = new ArrayBuffer(this.texWidth * this.texHeight * 4);
+        this.data8b    = new Uint8Array(this.imageData);
+        this.data32    = new Uint32Array(this.imageData);
+
+        for (let i=0;i<this.texWidth*this.texHeight;i++) {
+            this.data32[i] = 0;
         }
 
         this.texture = gl.createTexture();
 
         gl.bindTexture(gl.TEXTURE_2D, this.texture);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.texWidth, this.texHeight, 0, gl.RGBA, gl.UNSIGNED_BYTE, this.imageData);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.texWidth, this.texHeight, 0, gl.RGBA, gl.UNSIGNED_BYTE, this.data8b);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -77,7 +79,7 @@ class Layer {
         let gl: WebGLRenderingContext = this.gl;
 
         gl.bindTexture(gl.TEXTURE_2D, this.texture);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.texWidth, this.texHeight, 0, gl.RGBA, gl.UNSIGNED_BYTE, this.imageData);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.texWidth, this.texHeight, 0, gl.RGBA, gl.UNSIGNED_BYTE, this.data8b);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -94,13 +96,10 @@ class Layer {
         return this.uvLimit;
     }
 
-    public plot(x: number, y: number, color: Color) {
-        let idx = (y * this.texWidth + x) * 4;
+    public plot(x: number, y: number, color: number) {
+        let idx = (y * this.texWidth + x);
 
-        this.imageData[idx] = color.r;
-        this.imageData[idx + 1] = color.g;
-        this.imageData[idx + 2] = color.b;
-        this.imageData[idx + 3] = color.a;
+        this.data32[idx] = color;
 
         this.updateTexture();
     }
