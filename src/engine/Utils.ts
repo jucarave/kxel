@@ -37,3 +37,12 @@ export function col(r: number, g: number, b: number, a: number): number {
         return (r << 24 | g << 16 | b << 8 | a);
     }
 }
+
+export function $(elementId: string): HTMLElement {
+    var type = elementId.charAt(0);
+    elementId = elementId.replace(type, "");
+
+    if (type == "#") {
+        return document.getElementById(elementId);
+    }
+}

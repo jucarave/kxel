@@ -11,6 +11,7 @@
     "src/index.ts",
 
     "src/engine/Geometry.ts",
+    "src/engine/Input.ts",
     "src/engine/Layer.ts",
     "src/engine/Matrix4.ts",
     "src/engine/Renderer.ts",
