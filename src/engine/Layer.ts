@@ -29,7 +29,9 @@ class Layer {
         this.geometry = new Geometry(this.texture);
 
         let l = -Math.floor(this.width / 2), r = Math.floor(this.width / 2),
-            t = Math.floor(this.height / 2), b = -Math.floor(this.height / 2);
+            t = Math.floor(this.height / 2), b = -Math.floor(this.height / 2),
+            tx = 1.0,
+            ty = 1.0;
 
         if (this.width % 2 != 0) { r += 1; }
         if (this.height % 2 != 0) { t += 1; }
@@ -39,10 +41,10 @@ class Layer {
         this.geometry.addVertice(l, t);
         this.geometry.addVertice(r, t);
 
-        this.geometry.addTexCoord(0.0, 1.0);
-        this.geometry.addTexCoord(1.0, 1.0);
+        this.geometry.addTexCoord(0.0,  ty);
+        this.geometry.addTexCoord( tx,  ty);
         this.geometry.addTexCoord(0.0, 0.0);
-        this.geometry.addTexCoord(1.0, 0.0);
+        this.geometry.addTexCoord( tx, 0.0);
 
         this.geometry.addTriangle(0, 1, 2);
         this.geometry.addTriangle(1, 3, 2);
@@ -53,7 +55,7 @@ class Layer {
     private initTexture(gl: WebGLRenderingContext): void {
         this.texWidth = nextPowerOf2(this.width);
         this.texHeight = nextPowerOf2(this.height);
-        this.uvLimit = [this.texWidth / this.width, this.texHeight / this.height];
+        this.uvLimit = [this.width / this.texWidth, this.height / this.texHeight];
 
         this.imageData = new ArrayBuffer(this.texWidth * this.texHeight * 4);
         this.data8b    = new Uint8Array(this.imageData);

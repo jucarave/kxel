@@ -61,19 +61,23 @@ class Geometry {
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer);
         gl.vertexAttribPointer(shader.attributes["aVertexPosition"], POSITION_SIZE, gl.FLOAT, false, 0, 0);
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);
-        gl.vertexAttribPointer(shader.attributes["aTextureCoord"], TEXCOORD_SIZE, gl.FLOAT, false, 0, 0);
+        if (shader.attributes["aTextureCoord"] !== undefined) {
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);
+            gl.vertexAttribPointer(shader.attributes["aTextureCoord"], TEXCOORD_SIZE, gl.FLOAT, false, 0, 0);
+        }
 
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
 
-        gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, this.texture);
-        gl.uniform1i(shader.uniforms["uSampler"], 0);
+        if (shader.uniforms["uTexture"] !== undefined) {
+            gl.activeTexture(gl.TEXTURE0);
+            gl.bindTexture(gl.TEXTURE_2D, this.texture);
+            gl.uniform1i(shader.uniforms["uTexture"], 0);
+        }
 
         gl.uniformMatrix4fv(shader.uniforms["uProjection"], false, camera);
         gl.uniformMatrix4fv(shader.uniforms["uPosition"], false, this.position);
-        gl.uniform1f(shader.uniforms["uZoom"], zoom);
-        gl.uniform2fv(shader.uniforms["uUV"], uv);
+        if (shader.uniforms["uZoom"] !== undefined) { gl.uniform1f(shader.uniforms["uZoom"], zoom); }
+        if (shader.uniforms["uUV"] !== undefined) { gl.uniform2fv(shader.uniforms["uUV"], uv); }
 
         gl.drawElements(gl.TRIANGLES, this.indices.length, gl.UNSIGNED_SHORT, 0);
     }

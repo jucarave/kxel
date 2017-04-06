@@ -1,4 +1,4 @@
-import ShaderStructure from '../shaders/ShaderStructure';
+import { ShaderStructure } from '../shaders/ShaderStructure';
 
 interface Attributes {
     [index: string]: number
@@ -18,7 +18,7 @@ class Shader {
     static maxAttribLength: number;
     static lastProgram: Shader;
 
-    constructor(public gl: WebGLRenderingContext, shader: ShaderStructure) {
+    constructor(private gl: WebGLRenderingContext, shader: ShaderStructure) {
         this.attributes = {};
         this.uniforms = {};
 

@@ -20,6 +20,7 @@
     "src/engine/Utils.ts",
 
     "src/shaders/BasicShader.ts",
+    "src/shaders/TransparentShader.ts",
     "src/shaders/ShaderStructure.ts"
   ]
 }
