@@ -1,5 +1,6 @@
 import Renderer from './Renderer';
 import Layer from './Layer';
+import { ShaderType } from '../shaders/ShaderStructure';
 
 class Sprite {
     private background  :       Layer;
@@ -27,7 +28,7 @@ class Sprite {
     }
 
     public render(): void {
-        this.renderer.render(this.background, this.zoom, "TRANSPARENT");
+        this.renderer.render(this.background, this.zoom, ShaderType.TRANSPARENT);
 
         for (let i=0,layer: Layer;layer=this.layers[i];i++) {
             this.renderer.render(layer, this.zoom);

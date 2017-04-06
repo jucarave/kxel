@@ -8,3 +8,10 @@ export interface ShaderStructure {
 export interface ShaderMap {
     [index: string]: Shader
 };
+
+let ShaderType = {
+    BASIC: "BASIC",
+    TRANSPARENT: "TRANSPARENT"
+};
+
+export { ShaderType };
