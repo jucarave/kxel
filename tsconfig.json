@@ -18,6 +18,7 @@
     "src/engine/Shader.ts",
     "src/engine/Sprite.ts",
     "src/engine/Utils.ts",
+    "src/engine/Vector2.ts",
 
     "src/shaders/BasicShader.ts",
     "src/shaders/TransparentShader.ts",

@@ -28,6 +28,8 @@ class Renderer {
             container.appendChild(canvas);
         }
 
+        canvas.addEventListener('contextmenu', event => event.preventDefault());
+
         this.canvas = canvas;
     }
 
