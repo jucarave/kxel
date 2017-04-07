@@ -11,6 +11,12 @@ class Matrix4 extends Array {
         }
     }
 
+    public translate(x: number, y: number, z: number = 0): void {
+        this[12] = x;
+        this[13] = y;
+        this[14] = z;
+    }
+
     public static createIdentity(): Matrix4 {
         return new Matrix4(
             1, 0, 0, 0,

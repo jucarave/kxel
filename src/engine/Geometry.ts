@@ -5,7 +5,7 @@ const POSITION_SIZE = 2;
 const TEXCOORD_SIZE = 2;
 
 class Geometry {
-    private position        :       Matrix4;
+    public position         :       Matrix4;
 
     private vertices        :       Array<number>;
     private texCoords       :       Array<number>;
@@ -18,8 +18,6 @@ class Geometry {
     private texture         :       WebGLTexture;
 
     constructor(texture: WebGLTexture) {
-        this.position = Matrix4.createTranslate(0, 0, 0);
-
         this.vertices = [];
         this.texCoords = [];
         this.indices  = [];

@@ -21,6 +21,9 @@
 
     "src/shaders/BasicShader.ts",
     "src/shaders/TransparentShader.ts",
-    "src/shaders/ShaderStructure.ts"
+    "src/shaders/ShaderStructure.ts",
+
+    "src/tools/InputTool.ts",
+    "src/tools/Tool.ts"
   ]
 }

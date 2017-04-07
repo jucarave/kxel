@@ -70,6 +70,22 @@ class Renderer {
         return this.gl;
     }
 
+    public get canvasX(): number {
+        return this.canvas.offsetLeft;
+    }
+
+    public get canvasY(): number {
+        return this.canvas.offsetTop;
+    }
+
+    public get canvasWidth(): number {
+        return this.width;
+    }
+
+    public get canvasHeight(): number {
+        return this.height;
+    }
+
     public clear(): void {
         let gl: WebGLRenderingContext = this.gl;
 
