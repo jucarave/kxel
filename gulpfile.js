@@ -7,13 +7,13 @@ gulp.task("bundle", function() {
     return browserify({
         basedir: '.',
         debug: true,
-        entries: ['src/index.ts'],
+        entries: ['src/App.ts'],
         cache: {},
         packageCache: {}
     })
     .plugin(tsify)
     .bundle()
-    .pipe(source('game.js'))
+    .pipe(source('app.js'))
     .pipe(gulp.dest("dist/js"));
 });
 

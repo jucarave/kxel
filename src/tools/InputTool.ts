@@ -1,5 +1,5 @@
 import Tool from './Tool';
-import App from '../index';
+import App from '../App';
 import { Input } from '../engine/Input';
 
 class InputTool extends Tool {

@@ -1,4 +1,4 @@
-import App from '../index';
+import App from '../App';
 
 abstract class Tool {
     protected app: App;
