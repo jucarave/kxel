@@ -5,10 +5,12 @@ interface eventCallback {
 class Input {
     private wheelCallbacks          :       Array<eventCallback>;
     private middleMouseCallbacks    :       Array<eventCallback>;
+    private moveMouseCallbacks      :       Array<eventCallback>;
 
     constructor() {
         this.wheelCallbacks = [];
         this.middleMouseCallbacks = [];
+        this.moveMouseCallbacks = [];
 
         this.defineEvents();
     }
@@ -26,6 +28,12 @@ class Input {
 
         document.addEventListener("mouseup", (event: MouseEvent) => {
             this.dispatchButtonEvent(event, 0);
+        });
+
+        document.addEventListener("mousemove", (event: MouseEvent) => {
+            for (let i=0,mm:eventCallback;mm=this.moveMouseCallbacks[i];i++) {
+                mm(event, 1);
+            }
         });
     }
 
@@ -48,6 +56,10 @@ class Input {
 
     public onMiddleMouse(callback: eventCallback) {
         this.middleMouseCallbacks.push(callback);
+    }
+
+    public onMouseMove(callback: eventCallback) {
+        this.moveMouseCallbacks.push(callback);
     }
 }
 

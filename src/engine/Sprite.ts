@@ -9,14 +9,14 @@ class Sprite {
     private background  :       Layer;
     private layers      :       Array<Layer>;
     private zoomIndex   :       number
-    private position    :       Matrix4;
+    private pos    :       Matrix4;
 
     private static zoomLevels: Array<number> = [ 0.0625, 0.125, 0.25, 0.5, 1, 2, 3, 4, 6, 8, 10, 12, 15, 20, 25, 30, 40, 50, 60, 70 ];
 
     constructor(private width: number, private height: number, private renderer: Renderer) {
         this.layers = [];
         this.zoomIndex = ZOOM_BASE;
-        this.position = Matrix4.createTranslate(0, 0, 0);
+        this.pos = Matrix4.createTranslate(0, 0, 0);
 
         this.initTransparentLayer();
         this.addLayer();
@@ -24,14 +24,14 @@ class Sprite {
 
     private initTransparentLayer(): void {
         let layer = new Layer(this.width, this.height, this.renderer.GL);
-        layer.geometryCanvas.position = this.position;
+        layer.geometryCanvas.position = this.pos;
 
         this.background = layer;
     }
 
     public addLayer(): void {
         let layer = new Layer(this.width, this.height, this.renderer.GL);
-        layer.geometryCanvas.position = this.position;
+        layer.geometryCanvas.position = this.pos;
         
         this.layers.push(layer);
     }
@@ -46,6 +46,18 @@ class Sprite {
 
     public get zoom(): number {
         return Sprite.zoomLevels[this.zoomIndex];
+    }
+
+    public get nextZoom(): number {
+        return Sprite.zoomLevels[this.zoomIndex + 1];
+    }
+
+    public get prevZoom(): number {
+        return Sprite.zoomLevels[this.zoomIndex - 1];
+    }
+
+    public get position(): Matrix4 {
+        return this.pos;
     }
 
     public zoomIn(): void {

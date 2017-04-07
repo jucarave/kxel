@@ -11,10 +11,16 @@ class Matrix4 extends Array {
         }
     }
 
-    public translate(x: number, y: number, z: number = 0): void {
-        this[12] = x;
-        this[13] = y;
-        this[14] = z;
+    public static translate(matrix4: Matrix4, x: number, y: number, z: number = 0, relative: boolean = false): void {
+        if (relative) {
+            matrix4[12] += x;
+            matrix4[13] += y;
+            matrix4[14] += z;
+        } else {
+            matrix4[12] = x;
+            matrix4[13] = y;
+            matrix4[14] = z;
+        }
     }
 
     public static createIdentity(): Matrix4 {
