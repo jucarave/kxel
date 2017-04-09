@@ -1,28 +1,37 @@
+import Toolshed from './Toolshed';
 import Renderer from './engine/Renderer';
 import Sprite from './engine/Sprite';
-import Tool from './tools/Tool';
 import InputTool from './tools/InputTool';
+import ZoomTool from './tools/ZoomTool';
+import Tool from './tools/Tool';
 import { $ } from './engine/Utils';
 
 class App {
     public readonly renderer        :       Renderer;
-    private tools                   :       Array<Tool>;
-
+    public readonly toolshed        :       Toolshed;
     public sprite                   :       Sprite;
+    public tool                     :       Tool;
 
     constructor() {
         this.renderer = new Renderer(854, 480, document.getElementById("divApp"));
+        this.toolshed = new Toolshed();
+
         this.initTools();
     }
 
     private initTools(): void {
-        this.tools = [];
+        let zoomTool = new ZoomTool(this);
+        this.toolshed.AddTool("zoom", zoomTool);
 
         new InputTool(this);
+
+        this.tool = zoomTool;
+        this.tool.activate();
     }
 
     private updateUI(): void {
         $("#lblZoom").innerHTML = this.sprite.zoom * 100 + "%";
+        $("#lblTool").innerHTML = this.tool.name;
     }
 
     public newSprite(width: number, height: number): Sprite {

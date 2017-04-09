@@ -9,6 +9,7 @@
   },
   "files": [
     "src/App.ts",
+    "src/Toolshed.ts",
 
     "src/engine/Geometry.ts",
     "src/engine/Input.ts",
@@ -25,6 +26,7 @@
     "src/shaders/ShaderStructure.ts",
 
     "src/tools/InputTool.ts",
-    "src/tools/Tool.ts"
+    "src/tools/Tool.ts",
+    "src/tools/ZoomTool.ts"
   ]
 }

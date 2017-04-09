@@ -1,4 +1,5 @@
 import Tool from './Tool';
+import ZoomTool from './ZoomTool';
 import App from '../App';
 import Matrix4 from '../engine/Matrix4';
 import { Vector2, vec2 } from '../engine/Vector2';
@@ -6,11 +7,13 @@ import { Input } from '../engine/Input';
 
 class InputTool extends Tool {
     private dragAnchor      :       Vector2;
+    private zoomTool        :       ZoomTool;
 
     constructor(app: App) {
         super(app);
 
         this.dragAnchor = null;
+        this.zoomTool = app.toolshed.getTool<ZoomTool>("zoom");
 
         this.initEvents();
     }
@@ -29,47 +32,10 @@ class InputTool extends Tool {
         });
     }
 
-    private outOfBounds(x: number, y: number): boolean {
-        let px = x - this.app.renderer.canvasX,
-            py = y - this.app.renderer.canvasY,
-            width = this.app.renderer.canvasWidth,
-            height = this.app.renderer.canvasHeight;
-
-        return (px < 0 || py < 0 || px >= width || py >= height);
-    }
-
     private onMouseWheel(event: WheelEvent): void {
-        if (this.outOfBounds(event.clientX, event.clientY)) { return; }
+        if (this.app.renderer.outOfBounds(event.clientX, event.clientY)) { return; }
 
-        let sprite = this.app.sprite,
-            x = (event.clientX - this.app.renderer.canvasX - (this.app.renderer.canvasWidth / 2)), 
-            y = -(event.clientY - this.app.renderer.canvasY - (this.app.renderer.canvasHeight / 2)),
-            nextZoom = sprite.nextZoom,
-            prevZoom = sprite.prevZoom;
-
-        if (event.deltaY > 0) {
-            if (prevZoom === undefined) { return; }
-
-            let dzoom = sprite.zoom - prevZoom, 
-                dx = (x - sprite.position[12]) / (sprite.zoom / dzoom),
-                dy = -(sprite.position[13] - y) / (sprite.zoom / dzoom);
-
-            sprite.zoomOut();
-
-            Matrix4.translate(sprite.position, Math.round(dx), Math.round(dy), 0, true);
-        } else {
-            if (nextZoom === undefined) { return; }
-
-            let dzoom = nextZoom - sprite.zoom,
-                dx = -(x - sprite.position[12]) / (sprite.zoom / dzoom),
-                dy = (sprite.position[13] - y) / (sprite.zoom / dzoom);
-
-            sprite.zoomIn();
-
-            Matrix4.translate(sprite.position, Math.round(dx), Math.round(dy), 0, true);
-        }
-
-        this.app.render();
+        this.zoomTool.zoomToPixel(event.clientX - this.app.renderer.canvasX, event.clientY - this.app.renderer.canvasY, event.deltaY < 0);
     }
 
     private onMiddleMouse(event: MouseEvent, status: number): void {
@@ -78,7 +44,7 @@ class InputTool extends Tool {
             return;
         }
 
-        if (this.outOfBounds(event.clientX, event.clientY)) { return; }
+        if (this.app.renderer.outOfBounds(event.clientX, event.clientY)) { return; }
 
         let x = event.clientX - this.app.renderer.canvasX, 
             y = event.clientY - this.app.renderer.canvasY;
@@ -90,7 +56,7 @@ class InputTool extends Tool {
 
     private onMouseMove(event: MouseEvent): void {
         if (this.dragAnchor == null) { return; }
-        if (this.outOfBounds(event.clientX, event.clientY)) { return; }
+        if (this.app.renderer.outOfBounds(event.clientX, event.clientY)) { return; }
 
         let x = event.clientX - this.app.renderer.canvasX, 
             y = event.clientY - this.app.renderer.canvasY, 

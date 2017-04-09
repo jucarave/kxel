@@ -88,6 +88,15 @@ class Renderer {
         return this.height;
     }
 
+    public outOfBounds(x: number, y: number): boolean {
+        let px = x - this.canvasX,
+            py = y - this.canvasY,
+            width = this.canvasWidth,
+            height = this.canvasHeight;
+
+        return (px < 0 || py < 0 || px >= width || py >= height);
+    }
+
     public clear(): void {
         let gl: WebGLRenderingContext = this.gl;
 
