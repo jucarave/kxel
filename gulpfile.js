@@ -3,6 +3,7 @@ var browserify = require('browserify');
 var tsify = require('tsify');
 var source = require('vinyl-source-stream');
 var watchify = require('watchify');
+var errorify = require('errorify');
 
 gulp.task("bundle", function() {
     return browserify({
@@ -35,7 +36,8 @@ gulp.task("watch", function() {
         packageCache: {}
     })
     .plugin(tsify)
-    .plugin(watchify);
+    .plugin(watchify)
+    .plugin(errorify);
 
     bundle.on('update', function(){
         bundleWatchify(bundle);

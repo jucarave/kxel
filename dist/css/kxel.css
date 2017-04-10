@@ -1,0 +1,58 @@
+body {
+    overflow: hidden;
+    margin: 0px;
+}
+
+.menu {
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+}
+
+.menu > li {
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    width: 64px;
+    height: 20px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.menu > li :hover {
+    background-color: gray;
+}
+
+.menu > li ul {
+    padding: 0px;
+    position: absolute;
+    top: 20px;
+    background-color: white;
+    width: 200px;
+}
+
+.menu > li ul li {
+    padding-left: 32px;
+    text-align: left;
+    display: table;
+    table-layout: fixed;
+    height: 32px;
+    background-color: white;
+}
+
+.menu > li ul li div {
+    display: table-cell;
+    vertical-align: middle;
+    width: 168px;
+}
+
+.menu > li ul li ul {
+    top: 0px;
+    border: 1px solid black;
+    width: 150px;
+}
+
+.shortcut {
+    text-align: right;
+    padding-right: 8px;
+}

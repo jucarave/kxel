@@ -55,7 +55,7 @@ class Renderer {
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-        gl.clearColor(0.325, 0.435, 0.592, 1.0);
+        gl.clearColor(0.349, 0.321, 0.254, 1.0);
     }
 
     private loadShaders(): void {

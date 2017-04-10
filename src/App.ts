@@ -6,6 +6,7 @@ import ZoomTool from './tools/ZoomTool';
 import Tool from './tools/Tool';
 import { $ } from './engine/Utils';
 
+
 class App {
     public readonly renderer        :       Renderer;
     public readonly toolshed        :       Toolshed;
@@ -13,7 +14,9 @@ class App {
     public tool                     :       Tool;
 
     constructor() {
-        this.renderer = new Renderer(854, 480, document.getElementById("divApp"));
+        let container = $("#divApp");
+
+        this.renderer = new Renderer(854, 480, container);
         this.toolshed = new Toolshed();
 
         this.initTools();
@@ -30,8 +33,8 @@ class App {
     }
 
     private updateUI(): void {
-        $("#lblZoom").innerHTML = this.sprite.zoom * 100 + "%";
-        $("#lblTool").innerHTML = this.tool.name;
+        /*$("#lblZoom").innerHTML = this.sprite.zoom * 100 + "%";
+        $("#lblTool").innerHTML = this.tool.name;*/
     }
 
     public newSprite(width: number, height: number): Sprite {
