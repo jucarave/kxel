@@ -5,7 +5,7 @@ import InputTool from './tools/InputTool';
 import ZoomTool from './tools/ZoomTool';
 import Tool from './tools/Tool';
 import { $ } from './engine/Utils';
-
+import Menu from './ui/Menu';
 
 class App {
     public readonly renderer        :       Renderer;
@@ -14,12 +14,13 @@ class App {
     public tool                     :       Tool;
 
     constructor() {
-        let container = $("#divApp");
+        let container = $("#divApp")[0];
 
         this.renderer = new Renderer(854, 480, container);
         this.toolshed = new Toolshed();
 
         this.initTools();
+        this.initUI();
     }
 
     private initTools(): void {
@@ -30,6 +31,10 @@ class App {
 
         this.tool = zoomTool;
         this.tool.activate();
+    }
+
+    private initUI(): void {
+        new Menu();
     }
 
     private updateUI(): void {

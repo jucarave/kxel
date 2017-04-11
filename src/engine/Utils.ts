@@ -38,12 +38,21 @@ export function col(r: number, g: number, b: number, a: number): number {
     }
 }
 
-export function $(elementId: string): HTMLElement {
+export function $(elementId: string): Array<HTMLElement> {
     var type = elementId.charAt(0);
     elementId = elementId.replace(type, "");
 
     if (type == "#") {
-        return document.getElementById(elementId);
+        return [document.getElementById(elementId)];
+    } else if (type == ".") {
+        let collection = document.getElementsByClassName(elementId);
+        let ret: Array<HTMLElement> = [];
+
+        for (let i=0,ele:Element;ele=collection[i];i++) {
+            ret.push(<HTMLElement> ele);
+        }
+
+        return ret;
     }
 }
 

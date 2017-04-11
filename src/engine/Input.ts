@@ -34,20 +34,28 @@ class Input {
         this.defineEvents();
     }
 
+    private eventOnCanvas(): boolean {
+        return ((<HTMLCanvasElement> event.target).getContext !== undefined);
+    }
+
     private defineEvents(): void {
         document.addEventListener("mousewheel", (event: WheelEvent) => {
+            if (!this.eventOnCanvas()) { return; }
             this.callEventCallbacks(this.wheelCallbacks, event, 1);
         });
 
         document.addEventListener("mousedown", (event: MouseEvent) => {
+            if (!this.eventOnCanvas()) { return; }
             this.dispatchButtonEvent(event, 1);
         });
 
         document.addEventListener("mouseup", (event: MouseEvent) => {
+            if (!this.eventOnCanvas()) { return; }
             this.dispatchButtonEvent(event, 0);
         });
 
         document.addEventListener("mousemove", (event: MouseEvent) => {
+            if (!this.eventOnCanvas()) { return; }
             this.callEventCallbacks(this.moveMouseCallbacks, event, 1);
         });
     }

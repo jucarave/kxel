@@ -27,6 +27,8 @@
 
     "src/tools/InputTool.ts",
     "src/tools/Tool.ts",
-    "src/tools/ZoomTool.ts"
+    "src/tools/ZoomTool.ts",
+
+    "src/ui/Menu.ts"
   ]
 }
