@@ -71,3 +71,45 @@ body {
     float: right;
     margin-right: 8px;
 }
+
+aside {
+    display: inline-block;
+    width: 200px;
+    height: 100%;
+    vertical-align: top;
+    background-color: #1D628B;
+}
+
+main {
+    display: inline-block;
+    height: 100%;
+    vertical-align: top;
+}
+
+#toolshed {
+    height: 400px;
+    margin: 32px;
+}
+
+.button {
+    width: 32px;
+    height: 32px;
+    background-color: #1D628B;
+    border: 1px solid #16386b;
+    display: inline-block;
+    cursor: pointer;
+    background-image: url('../img/icons.png');
+    background-repeat: no-repeat;
+}
+
+.active{
+    background-color: #4589B0;
+}
+
+.toolshedRow :hover{
+    background-color: #4589B0;
+}
+
+ .toolshedRow {
+     height: 34px;
+ }

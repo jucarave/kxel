@@ -6,6 +6,7 @@ import ZoomTool from './tools/ZoomTool';
 import Tool from './tools/Tool';
 import { $ } from './engine/Utils';
 import Menu from './ui/Menu';
+import Layout from './ui/Layout';
 
 class App {
     public readonly renderer        :       Renderer;
@@ -34,6 +35,7 @@ class App {
     }
 
     private initUI(): void {
+        Layout.resize();
         new Menu();
     }
 

@@ -29,6 +29,7 @@
     "src/tools/Tool.ts",
     "src/tools/ZoomTool.ts",
 
+    "src/ui/Layout.ts",
     "src/ui/Menu.ts"
   ]
 }

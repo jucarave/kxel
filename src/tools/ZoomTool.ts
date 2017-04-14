@@ -8,9 +8,14 @@ class ZoomTool extends Tool {
         super(app, 'Z');
 
         this.name = "Zoom";
+        this.iconPosition[0] = 32;
+
+        this.addIcon();
     }
 
     public activate() {
+        super.activate();
+        
         this.registeredEvents.push(Input.onMouseLeft((event: MouseEvent, status: number) => {
             if (this.app.renderer.outOfBounds(event.clientX, event.clientY)){ return; }
             if (status != 1) { return; }
