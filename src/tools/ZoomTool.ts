@@ -8,12 +8,12 @@ class ZoomTool extends Tool {
         super(app, 'Z');
 
         this.name = "Zoom";
-        this.iconPosition[0] = 32;
+        this.iconPosition = [0, 0];
 
         this.addIcon();
     }
 
-    public activate() {
+    public activate(): void {
         super.activate();
         
         this.registeredEvents.push(Input.onMouseLeft((event: MouseEvent, status: number) => {
@@ -37,7 +37,7 @@ class ZoomTool extends Tool {
         }));
     }
 
-    public zoomToPixel(px: number, py: number, zoomIn: boolean = true) {
+    public zoomToPixel(px: number, py: number, zoomIn: boolean = true): void {
         let sprite = this.app.sprite,
             x = (px - (this.app.renderer.canvasWidth / 2)), 
             y = -(py - (this.app.renderer.canvasHeight / 2)),

@@ -3,6 +3,7 @@ import Renderer from './engine/Renderer';
 import Sprite from './engine/Sprite';
 import InputTool from './tools/InputTool';
 import ZoomTool from './tools/ZoomTool';
+import HandTool from './tools/HandTool';
 import Tool from './tools/Tool';
 import { $ } from './engine/Utils';
 import Menu from './ui/Menu';
@@ -26,7 +27,10 @@ class App {
 
     private initTools(): void {
         let zoomTool = new ZoomTool(this);
-        this.toolshed.AddTool("zoom", zoomTool);
+        this.toolshed.addTool("zoom", zoomTool);
+
+        let handTool = new HandTool(this);
+        this.toolshed.addTool("hand", handTool);
 
         new InputTool(this);
 
@@ -42,6 +46,12 @@ class App {
     private updateUI(): void {
         /*$("#lblZoom").innerHTML = this.sprite.zoom * 100 + "%";
         $("#lblTool").innerHTML = this.tool.name;*/
+    }
+
+    public changeTool(tool: Tool): void {
+        this.tool.deactivate();
+        this.tool = tool;
+        this.tool.activate();
     }
 
     public newSprite(width: number, height: number): Sprite {

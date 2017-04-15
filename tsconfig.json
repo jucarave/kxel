@@ -25,6 +25,7 @@
     "src/shaders/TransparentShader.ts",
     "src/shaders/ShaderStructure.ts",
 
+    "src/tools/HandTool.ts",
     "src/tools/InputTool.ts",
     "src/tools/Tool.ts",
     "src/tools/ZoomTool.ts",

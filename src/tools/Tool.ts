@@ -37,7 +37,7 @@ abstract class Tool {
         this.registeredEvents = [];
     }
 
-    public addIcon(): void {
+    protected addIcon(): void {
         let row = Tool.uiIconsRow;
         if (!row || row.childElementCount >= ICONS_PER_ROW) {
             row = document.createElement("div");
@@ -55,6 +55,10 @@ abstract class Tool {
         this.iconElement.title = this.name + shortcut;
         this.iconElement.style.backgroundPositionX = (-this.iconPosition[0]) + "px";
         this.iconElement.style.backgroundPositionY = (-this.iconPosition[1]) + "px";
+
+        this.iconElement.addEventListener("click", () => {
+            this.app.changeTool(this);
+        });
 
         row.appendChild(this.iconElement);
     }

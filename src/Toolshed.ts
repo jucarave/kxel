@@ -7,18 +7,21 @@ interface ToolMap {
 }
 
 class Toolshed {
-    private tools: ToolMap;
+    private toolMap             :       ToolMap;
+    public readonly tools       :       Array<Tool>;
 
     constructor() {
-        this.tools = {};
+        this.toolMap = {};
+        this.tools = [];
     }
 
-    public AddTool(name: AppTools, tool: Tool) {
-        this.tools[name] = tool;
+    public addTool(name: AppTools, tool: Tool) {
+        this.toolMap[name] = tool;
+        this.tools.push(tool);
     }
 
     public getTool<T>(name: AppTools): T {
-        return <T> (<any> this.tools[name]);
+        return <T> (<any> this.toolMap[name]);
     }
 }
 

@@ -10,7 +10,7 @@ interface EventCallback {
 };
 
 interface ListenerMap {
-    [index: string] : "wheelCallbacks" | "middleMouseCallbacks" | "moveMouseCallbacks" | "leftMouseCallbacks" | "rightMouseCallbacks"
+    [index: string] : "wheelCallbacks" | "middleMouseCallbacks" | "moveMouseCallbacks" | "leftMouseCallbacks" | "rightMouseCallbacks" | "keyboardCallbacks"
 }
 
 class Input {
@@ -19,6 +19,7 @@ class Input {
     private leftMouseCallbacks      :       Array<EventCallback>;
     private rightMouseCallbacks     :       Array<EventCallback>;
     private moveMouseCallbacks      :       Array<EventCallback>;
+    private keyboardCallbacks       :       Array<EventCallback>;
 
     private callbacksMap            :       ListenerMap;
 
@@ -28,6 +29,7 @@ class Input {
         this.leftMouseCallbacks = [];
         this.rightMouseCallbacks = [];
         this.moveMouseCallbacks = [];
+        this.keyboardCallbacks = [];
         
         this.callbacksMap = {};
 
@@ -55,8 +57,15 @@ class Input {
         });
 
         document.addEventListener("mousemove", (event: MouseEvent) => {
-            if (!this.eventOnCanvas()) { return; }
             this.callEventCallbacks(this.moveMouseCallbacks, event, 1);
+        });
+
+        document.addEventListener("keydown", (event: KeyboardEvent) => {
+            this.callEventCallbacks(this.keyboardCallbacks, event, 1);
+        });
+
+        document.addEventListener("keyup", (event: KeyboardEvent) => {
+            this.callEventCallbacks(this.keyboardCallbacks, event, 1);
         });
     }
 
@@ -124,6 +133,15 @@ class Input {
         
         this.moveMouseCallbacks.push({ callback: callback, uuid: uuid});
         this.callbacksMap[uuid] = "moveMouseCallbacks";
+
+        return uuid;
+    }
+
+    public onKeyboard(callback: Callback): string {
+        let uuid = generateUUID();
+        
+        this.keyboardCallbacks.push({ callback: callback, uuid: uuid});
+        this.callbacksMap[uuid] = "keyboardCallbacks";
 
         return uuid;
     }
