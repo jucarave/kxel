@@ -1,13 +1,16 @@
 import Toolshed from './Toolshed';
 import Renderer from './engine/Renderer';
 import Sprite from './engine/Sprite';
+import Menu from './ui/Menu';
+import Layout from './ui/Layout';
+
+import Tool from './tools/Tool';
 import InputTool from './tools/InputTool';
 import ZoomTool from './tools/ZoomTool';
 import HandTool from './tools/HandTool';
-import Tool from './tools/Tool';
+import BrushTool from './tools/BrushTool';
+
 import { $ } from './engine/Utils';
-import Menu from './ui/Menu';
-import Layout from './ui/Layout';
 
 class App {
     public readonly renderer        :       Renderer;
@@ -27,10 +30,10 @@ class App {
 
     private initTools(): void {
         let zoomTool = new ZoomTool(this);
-        this.toolshed.addTool("zoom", zoomTool);
 
-        let handTool = new HandTool(this);
-        this.toolshed.addTool("hand", handTool);
+        this.toolshed.addTool("zoom", zoomTool);
+        this.toolshed.addTool("hand", new HandTool(this));
+        this.toolshed.addTool("brush", new BrushTool(this));
 
         new InputTool(this);
 

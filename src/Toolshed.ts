@@ -1,6 +1,6 @@
 import Tool from './tools/Tool';
 
-type AppTools = "zoom" | "hand";
+type AppTools = "zoom" | "hand" | "brush";
 
 interface ToolMap {
     [index: string] : Tool;

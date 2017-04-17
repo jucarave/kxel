@@ -2,6 +2,7 @@ import Renderer from './Renderer';
 import Layer from './Layer';
 import Matrix4 from './Matrix4';
 import { ShaderType } from '../shaders/ShaderStructure';
+import { Vector2, vec2 } from './Vector2';
 
 const ZOOM_BASE = 4;
 
@@ -13,6 +14,8 @@ class Sprite {
 
     private static zoomLevels: Array<number> = [ 0.0625, 0.125, 0.25, 0.5, 1, 2, 3, 4, 6, 8, 10, 12, 15, 20, 25, 30, 40, 50, 60, 70 ];
 
+    public readonly layer       :           Layer;
+
     constructor(private width: number, private height: number, private renderer: Renderer) {
         this.layers = [];
         this.zoomIndex = ZOOM_BASE;
@@ -20,6 +23,8 @@ class Sprite {
 
         this.initTransparentLayer();
         this.addLayer();
+
+        this.layer = this.layers[0];
     }
 
     private initTransparentLayer(): void {
@@ -74,6 +79,19 @@ class Sprite {
 
     public resetZoom(): void {
         this.zoomIndex = ZOOM_BASE;
+    }
+
+    public screenCoordsToLocalPixels(sx: number, sy: number): Vector2 {
+        let ret: Vector2 = null;
+
+        let x = Math.floor((sx - this.position[12]) / this.zoom + this.width / 2),
+            y = Math.floor((this.position[13] - sy) / this.zoom + this.height / 2);
+
+        if (x >= 0 && y >= 0 && x < this.width && y < this.height) {
+            ret = vec2(x, y);
+        }
+
+        return ret;
     }
 }
 
