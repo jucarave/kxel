@@ -1,3 +1,5 @@
+import { Vector2, vec2 } from './Vector2';
+
 export function nextPowerOf2(num: number) {
     if (isPowerOf2(num)) {
         return num;
@@ -65,4 +67,36 @@ export function generateUUID() {
     });
     
     return uuid;
+}
+
+export function bresenhamLine(point1: Vector2, point2: Vector2): Array<Vector2> {
+    let ret: Array<Vector2> = [];
+
+    let px = point1.x,
+        py = point1.y,
+        dx = Math.abs(point2.x - point1.x),
+        dy = Math.abs(point2.y - point1.y),
+        sx = (point1.x < point2.x)? 1 : -1,
+        sy = (point1.y < point2.y)? 1 : -1,
+        err = ((dx > dy)? dx : -dy) / 2;
+
+    while (true) {
+        ret.push(vec2(px, py));
+
+        if (px == point2.x && py == point2.y) { break; }
+
+        let err2 = err;
+
+        if (err2 > -dx) {
+            err -= dy;
+            px += sx;
+        }
+
+        if (err2 < dy) {
+            err += dx;
+            py += sy;
+        }
+    }
+
+    return ret;
 }
